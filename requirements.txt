@@ -1,0 +1,14 @@
+# requirements.txt for Plotonix
+# Add any Python dependencies required by Plotonix here
+
+# JSON handling (built-in, no extra package needed)
+# File system operations (built-in)
+
+# Optional: colored CLI output
+colorama>=0.4.6
+
+# Optional: for better CLI argument parsing (if needed later)
+argparse  # built-in, but can use argparse enhancements if desired
+
+# Optional: for future template rendering
+jinja2>=3.1.2
