@@ -20,17 +20,24 @@ such as classic repos, Python projects, image/media projects, and CLI/tool repos
 ```bash
 git clone https://github.com/YusufErdemK/plotonix.git
 cd plotonix
-bash install.sh
-Usage
+chmod +x install.sh
+./install.sh
+```
+## Unistalling
+```bash
+cd plotonix
+./install.sh -u
+```
+## Usage
 Navigate to your project folder and run:
 
-mkdir my_project
+```bash
+mkdir my_project    #your repo name
 cd my_project
 plotonix           # Initialize a classic repository
 plotonix -py       # Initialize a Python repository
 plotonix -img      # Initialize an image/media repository
 plotonix -tool     # Initialize a CLI/tool repository
-Configuration
 ```
 
 Plotonix will prompt for any missing information when first run.
