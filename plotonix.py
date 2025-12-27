@@ -2,7 +2,6 @@
 import os
 import sys
 
-# 🔥 GLOBAL TEMPLATE PATH
 TEMPLATES_DIR = "/usr/local/share/plotonix/templates"
 
 # Template mapping
@@ -21,7 +20,6 @@ def create_repo(template_key="classic"):
         print("All roads lead to Rome! Template '{}' not found in {}".format(template_file, TEMPLATES_DIR))
         return
 
-    # Run the template script to create files/folders
     target_dir = os.getcwd()
     namespace = {}
     with open(template_path, "r") as f:
