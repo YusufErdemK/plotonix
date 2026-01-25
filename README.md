@@ -32,7 +32,7 @@ cd plotonix
 Navigate to your project folder and run:
 
 ```bash
-mkdir my_project    #your repo name
+mkdir my_project    # your repo name
 cd my_project
 plotonix           # Initialize a classic repository
 plotonix -py       # Initialize a Python repository
