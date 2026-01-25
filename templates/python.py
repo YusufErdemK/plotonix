@@ -5,7 +5,7 @@ def create_structure(target_dir):
         "src": ["main.py"],
         "tests": ["test_main.py"],
         "docs": ["usage.md"],
-        "venv": []  # opsiyonel, virtual environment için
+        "venv": []
     }
 
     for folder, files in folders.items():
