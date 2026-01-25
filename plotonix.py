@@ -4,7 +4,6 @@ import sys
 
 TEMPLATES_DIR = "/usr/local/share/plotonix/templates"
 
-# Template mapping
 TEMPLATE_MAP = {
     "classic": "classic-repo.py",
     "images": "images.py",
@@ -17,7 +16,7 @@ def create_repo(template_key="classic"):
     template_path = os.path.join(TEMPLATES_DIR, template_file)
 
     if not os.path.exists(template_path):
-        print("All roads lead to Rome! Template '{}' not found in {}".format(template_file, TEMPLATES_DIR))
+        print("Template '{}' not found in {}".format(template_file, TEMPLATES_DIR))
         return
 
     target_dir = os.getcwd()
