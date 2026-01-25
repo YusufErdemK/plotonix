@@ -1,17 +1,14 @@
 #!/bin/bash
 set -e
 
-# Mevcut klasör
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Global kurulum klasörü
 INSTALL_DIR="/usr/local/share/plotonix"
 LAUNCHER="/usr/local/bin/plotonix"
 
 if [[ "$1" == "-u" ]] || [[ "$1" == "--uninstall" ]]; then
     echo "Uninstalling Plotonix..."
 
-    # Launcher'ı sil
     if [[ -f "$LAUNCHER" ]]; then
         sudo rm "$LAUNCHER"
         echo "Removed: $LAUNCHER"
@@ -33,15 +30,12 @@ fi
 
 echo "Installing Plotonix..."
 
-# Önce eski klasörü sil
 sudo rm -rf "$INSTALL_DIR"
 sudo mkdir -p "$INSTALL_DIR"
 
-# Tüm projeyi (py + templates + diğer dosyalar) kopyala
 sudo cp -r "$DIR/"* "$INSTALL_DIR/"
 sudo chmod -R 755 "$INSTALL_DIR"
 
-# Launcher script
 echo "#!/bin/bash
 python3 \"$INSTALL_DIR/plotonix.py\" \"\$@\"" | sudo tee "$LAUNCHER" > /dev/null
 
