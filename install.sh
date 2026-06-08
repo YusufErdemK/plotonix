@@ -16,7 +16,6 @@ if [[ "$1" == "-u" ]] || [[ "$1" == "--uninstall" ]]; then
         echo "Launcher not found, skipping."
     fi
 
-    # Global klasörü sil
     if [[ -d "$INSTALL_DIR" ]]; then
         sudo rm -rf "$INSTALL_DIR"
         echo "Removed: $INSTALL_DIR"
@@ -40,6 +39,10 @@ echo "#!/bin/bash
 python3 \"$INSTALL_DIR/plotonix.py\" \"\$@\"" | sudo tee "$LAUNCHER" > /dev/null
 
 sudo chmod +x "$LAUNCHER"
+
+sudo chown -R $USER:$USER /usr/local/share/plotonix/json
+
+sudo chmod -R 775 /usr/local/share/plotonix/json
 
 echo "Plotonix installed successfully!"
 echo "You can run it from anywhere using: plotonix"
