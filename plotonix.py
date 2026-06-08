@@ -4,7 +4,8 @@ import sys
 from flask import json
 
 TEMPLATES_DIR = "/usr/local/share/plotonix/templates"
-GITHUBCRED_PATH = "json/github.json"
+BASE_DIR = "/usr/local/share/plotonix"
+GITHUBCRED_PATH = os.path.join(BASE_DIR, "json", "github.json")
 
 TEMPLATE_MAP = {
     "classic": "classic-repo.py",
@@ -17,7 +18,7 @@ def registerGitHub():
     username = input("Enter your GitHub username: ")
     token = input("Enter your GitHub personal access token: ")
     
-    with open("json/github.json", "w") as f:
+    with open(GITHUBCRED_PATH, "w") as f:
         json.dump({"username": username, "token": token}, f)
     
     print("GitHub credentials registered successfully.")
@@ -37,15 +38,23 @@ def create_repo(template_key="classic"):
     with open(template_path, "r") as f:
         exec(f.read(), namespace)
 
+    # file/folder creator
     if "create_structure" in namespace:
         namespace["create_structure"](target_dir)
         print(f"Repository created using '{template_key}' template.")
     else:
         print(f"Template '{template_file}' does not define create_structure().")
+        
+    # github repo creator
+    if "create_github_repo" in namespace:
+        namespace["create_github_repo"]()
+        print("GitHub repository created in your account successfully.")
+    else:
+        print(f"Template '{template_file}' does not define create_github_repo().")
 
 def main():
     try:
-        with open("json/github.json", "r") as neckhurt:
+        with open(GITHUBCRED_PATH, "r") as neckhurt:
             content = neckhurt.read()
             if content:
                 pass
@@ -54,6 +63,14 @@ def main():
     except FileNotFoundError:
         print(f"Error: {GITHUBCRED_PATH} not found.")
     
+    # repo name
+    repoName = input("Enter the name of your new repository: ")
+    if repoName:
+        print(f"Creating repository '{repoName}'...")
+    else:
+        print("Repository name cannot be empty.")
+    
+    # repo templates
     args = sys.argv[1:]
     template = "classic"
     if args:
