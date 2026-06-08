@@ -40,3 +40,33 @@ def create_structure(target_dir):
         f.write("*.pyc\n__pycache__/\n.env\nvenv/\n")
 
     print("Python project structure created successfully!")
+
+def create_github_repo(creds_path="/usr/local/share/plotonix/json/github.json"):
+    import json
+    import requests
+
+    with open(creds_path, "r") as f:
+        creds = json.load(f)
+
+    username = creds.get("username")
+    token = creds.get("token")
+
+    if not username or not token:
+        print("GitHub credentials are missing. Please register them first.")
+        return
+
+    repo_name = input("Enter the name of your new repository: ")
+    if not repo_name:
+        print("Repository name cannot be empty.")
+        return
+
+    url = "https://api.github.com/user/repos"
+    headers = {"Authorization": f"token {token}"}
+    data = {"name": repo_name}
+
+    response = requests.post(url, headers=headers, json=data)
+
+    if response.status_code == 201:
+        print(f"GitHub repository '{repo_name}' created successfully.")
+    else:
+        print(f"Failed to create GitHub repository: {response.json().get('message', 'Unknown error')}")
